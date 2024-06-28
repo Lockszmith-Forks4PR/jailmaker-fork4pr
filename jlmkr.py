@@ -504,9 +504,8 @@ def log_jail(jail_name, args):
     """
     Show the log file of the jail with given name.
     """
-    return subprocess.run(
-        ["journalctl", "-u", f"{SHORTNAME}-{jail_name}", *args]
-    ).returncode
+    if not cmd_args: cmd_args = ["-xe"]
+    return subprocess.run(["journalctl", *cmd_args, "-u", f"{SHORTNAME}-{jail_name}"]).returncode
 
 
 def shell_jail(args):
